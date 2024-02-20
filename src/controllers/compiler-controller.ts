@@ -25,6 +25,6 @@ export const loadCode = async (req: Request, res: Response) => {
     }
     return res.status(201).send({ data: codeById.fullCode });
   } catch (error) {
-    return res.status(500).send({ error: "Error saving code" });
+    return res.status(500).send({ error: "Error retrieving code" });
   }
 };
