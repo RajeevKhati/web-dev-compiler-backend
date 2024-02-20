@@ -9,6 +9,7 @@ config();
 
 // Initialize Express app
 const app = express();
+const port = process.env.PORT ?? 5000;
 
 // Middleware
 app.use(express.json());
@@ -21,6 +22,6 @@ dbConnect();
 app.use("/compiler", compilerRouter);
 
 // Start the server
-app.listen(3000, () => {
-  console.log("Server is listening on port 3000...");
+app.listen(port, () => {
+  console.log("Server is listening on port: " + port);
 });
