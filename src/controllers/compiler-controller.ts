@@ -7,9 +7,24 @@ export const saveCode = async (req: Request, res: Response) => {
     const newCode = await Code.create({
       fullCode,
     });
-
-    return res.status(201).send(newCode);
+    if (!newCode) {
+      return res.status(500).send({ error: "Error saving code" });
+    }
+    return res.status(201).send({ data: newCode._id });
   } catch (error) {
-    res.status(500).send({ message: "Error saving code", error });
+    return res.status(500).send({ error: "Something went wrong" });
+  }
+};
+
+export const loadCode = async (req: Request, res: Response) => {
+  try {
+    const { urlId } = req.body;
+    const codeById = await Code.findById(urlId);
+    if (!codeById) {
+      return res.status(400).send({ error: "Incorrect Id" });
+    }
+    return res.status(201).send({ data: codeById.fullCode });
+  } catch (error) {
+    return res.status(500).send({ error: "Error saving code" });
   }
 };
